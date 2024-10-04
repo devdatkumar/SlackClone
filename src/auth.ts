@@ -1,6 +1,8 @@
 import NextAuth from "next-auth";
 import type { NextAuthConfig } from "next-auth";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
+import { type Adapter } from "next-auth/adapters";
+import authConfig from "./auth.config";
 import { db } from "@/db/index";
 import {
   users,
@@ -9,7 +11,6 @@ import {
   verificationTokens,
   authenticators,
 } from "@/db/schema";
-import authConfig from "./auth.config";
 
 export const config = {
   adapter: DrizzleAdapter(db, {
@@ -18,7 +19,7 @@ export const config = {
     sessionsTable: sessions,
     verificationTokensTable: verificationTokens,
     authenticatorsTable: authenticators,
-  }),
+  }) as Adapter,
   ...authConfig,
 } satisfies NextAuthConfig;
 
