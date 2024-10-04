@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import type { NextAuthConfig } from "next-auth";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import GitHub from "next-auth/providers/github";
 import { db } from "@/db/index";
 import {
   users,
@@ -10,6 +9,7 @@ import {
   verificationTokens,
   authenticators,
 } from "@/db/schema";
+import authConfig from "./auth.config";
 
 export const config = {
   adapter: DrizzleAdapter(db, {
@@ -19,12 +19,7 @@ export const config = {
     verificationTokensTable: verificationTokens,
     authenticatorsTable: authenticators,
   }),
-  providers: [
-    GitHub({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
-  ],
+  ...authConfig,
 } satisfies NextAuthConfig;
 
 export const { handlers, auth, signIn, signOut } = NextAuth(config);
