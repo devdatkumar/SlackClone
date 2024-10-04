@@ -3,11 +3,13 @@ import type { NextAuthConfig } from "next-auth";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import GitHub from "next-auth/providers/github";
 import { db } from "@/db/index";
-import { accounts } from "@/db/schema/accounts";
-import { authenticators } from "@/db/schema/authenticators";
-import { sessions } from "@/db/schema/sessions";
-import { users } from "@/db/schema/users";
-import { verificationTokens } from "@/db/schema/verificationtokens";
+import {
+  users,
+  accounts,
+  sessions,
+  verificationTokens,
+  authenticators,
+} from "@/db/schema";
 
 export const config = {
   adapter: DrizzleAdapter(db, {
