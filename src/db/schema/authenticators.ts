@@ -22,7 +22,7 @@ export const authenticators = pgTable(
     transports: text("transports"),
   },
   (authenticator) => ({
-    compositePK: primaryKey({
+    compositePk: primaryKey({
       columns: [authenticator.userId, authenticator.credentialID],
     }),
   })
